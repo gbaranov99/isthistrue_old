@@ -8,12 +8,13 @@
   />
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
 
-  <script type="text/javascript">// <![CDATA[
+  <script type="text/javascript">
     function loading(){
         $(".loading").show();
+        $(".loading-spinner").show();
         $(".content").hide();       
     }
-// ]]></script>
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 </head>
@@ -26,10 +27,77 @@
     <h3>Is this true?</h3>
     <input class="content" type="submit" value="Submit" onclick="loading();" />
   </form>
-  <div class="loading"></div>
+  <div class="loading result">
+    <p>
+      Please wait while ChatGPT processes your question...
+    </p>
+    <div class="loading-spinner"></div>
+  </div>
 
-  {% if result %}
-  <div class="content result">{{ result }}</div>
+
+  {% if result.Claim != '' and result_status.name == 'API_CALL_SUCCESS' %}
+    <div class="content result">
+      <h3>
+        Sources supporting the claim that "{{ result.Claim }}":
+      </h3>
+      {% if result.Supporting %}
+        {% for source in result.Supporting %}
+        <p>
+            {{ source }}
+        </p>
+        {% endfor %}
+      {% endif %}
+      {% if not result.Supporting %}
+        <p>
+          There are no sources supporting this claim.
+        </p>
+      {% endif %}
+      <h3>
+        Sources denying the claim that "{{ result.Claim }}":
+      </h3>
+      {% if result.Denying %}
+        {% for source in result.Denying %}
+        <p>
+            {{ source }}
+        </p>
+        {% endfor %}
+      {% endif %}
+      {% if not result.Denying %}
+        <p>
+          There are no sources denying this claim.
+        </p>
+      {% endif %}
+      <h3>
+        Is it true that "{{ result.Claim }}"?
+      </h3>
+      <h3>
+        {{ result.IsThisTrue }}
+      </h3>
+      <p>
+        {{ result.Justification }}
+      </p>
+    </div>
   {% endif %}
+  {% if result_status.name == 'API_CALL_FAILED' %}
+    <div class="content result">
+      <h3>
+        The OpenAI data was returned in an unexpected format, this is the response:
+      </h3>
+      <p>
+          {{ result }}
+      </p>
+    </div>
+  {% endif %}
+  <div class="footer">
+    <p>
+      This is a fact-checking website powered by OpenAI's ChatGPT language model.
+    </p>
+    <p>
+      Try it out by entering a fact you would like checked above.
+    </p>
+    <p>
+      The source code for this project is available <a href="https://github.com/gbaranov99/isthistrue" target="_blank">here</a>
+    </p>
+  </div>
 </body>
 

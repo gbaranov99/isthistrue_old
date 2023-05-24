@@ -65,11 +65,30 @@ input[type="submit"] {
   font-size: 20px;
   line-height: 40px;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 300px;
 }
 .loading {
+  display: none;
+}
+.loading-spinner {
   width: 256px;
   height: 256px;
-  margin-left: 175px;
+  margin-left: 225px;
   background: url(/static/Spinner-2.gif) no-repeat;
-  display: none;
+}
+.footer {
+  position: fixed; 
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px;
+  font-size: 15px;
+  line-height: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #8bddc7;
 }
