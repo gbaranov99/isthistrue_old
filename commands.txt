@@ -1,0 +1,6 @@
+to run: 
+    nohup python3 -m flask run &>logs.txt &
+
+to terminate running service: 
+    ps aux | grep flask
+    kill -9 <process id>

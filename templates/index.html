@@ -27,12 +27,12 @@
     <h3>Is this true?</h3>
     <input class="content" type="submit" value="Submit" onclick="loading();" />
   </form>
-  <div class="loading result">
+  <div class="loading">
     <p>
-      Please wait while ChatGPT processes your question...
+      Please wait for ChatGPT's response...
     </p>
-    <div class="loading-spinner"></div>
   </div>
+  <div class="loading-spinner"></div>
 
 
   {% if result.Claim != '' and result_status.name == 'API_CALL_SUCCESS' %}
@@ -90,10 +90,7 @@
   {% endif %}
   <div class="footer">
     <p>
-      This is a fact-checking website powered by OpenAI's ChatGPT language model.
-    </p>
-    <p>
-      Try it out by entering a fact you would like checked above.
+      A fact-checking website powered by ChatGPT
     </p>
     <p>
       The source code for this project is available <a href="https://github.com/gbaranov99/isthistrue" target="_blank">here</a>
